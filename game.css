@@ -31,3 +31,16 @@
 .game__tab__node__box-played{
     background: black;
 }
+
+
+.game__message{
+    color: red;
+    font-size: 380px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin: 0px auto;
+    left: 0;
+    text-align: center;
+    right: 0;
+}
