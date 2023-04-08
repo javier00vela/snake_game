@@ -3,7 +3,7 @@ const SNAKEGAME = {
         SNAKEGAME.GAME.executeGame();
     },
     DATA: {
-        matrizNumber: 15,
+        matrizNumber: 16,
         matriz: [],
         direction: 'ArrowRight',
         coordinates : [[0,0]],
@@ -14,7 +14,12 @@ const SNAKEGAME = {
         assignPlayer: function () {
             try{
                 SNAKEGAME.DATA.coordinates.forEach(([pointX , pointY]) => {
-                    SNAKEGAME.DATA.matriz[pointX][pointY] = 'game__tab__node__box-played'       
+                    if(pointY < SNAKEGAME.DATA.matrizNumber && pointY > -1 ){
+                        SNAKEGAME.DATA.matriz[pointX][pointY] = 'game__tab__node__box-played'       
+                    }else{
+                        document.getElementById("game__message").innerHTML = 'Perdiste';
+                        SNAKEGAME.DATA.finish = true;
+                    }
                 });
             }catch(e){
                document.getElementById("game__message").innerHTML = 'Perdiste';
@@ -25,18 +30,25 @@ const SNAKEGAME = {
             document.addEventListener(
                 "keydown",
                 (event) => {
+                    const direction = event.code;
+
+                    if(SNAKEGAME.DATA.direction == "ArrowDown" && direction == 'ArrowUp' ) return;
+                    if(SNAKEGAME.DATA.direction == "ArrowUp" && direction == 'ArrowDown' ) return;
+                    if(SNAKEGAME.DATA.direction == "ArrowLeft" && direction == 'ArrowRight' ) return;
+                    if(SNAKEGAME.DATA.direction == "ArrowRight" && direction == 'ArrowLeft' ) return;
+
                     SNAKEGAME.DATA.direction = event.code;
                 }
             );
         },
         move: async function (type) {
             const [posX , posY] =  SNAKEGAME.DATA.coordinates[0]
-            SNAKEGAME.DATA.direction = type;
+        
                 switch (type) {
 
                     case 'ArrowUp':
-                        SNAKEGAME.DATA.coordinates = [];
-                        SNAKEGAME.DATA.coordinates.push([posX-1, posY]);
+                            SNAKEGAME.DATA.coordinates = [];
+                            SNAKEGAME.DATA.coordinates.push([posX-1, posY]);
                         break;
                     case 'ArrowDown':
                         SNAKEGAME.DATA.coordinates = [];
@@ -51,6 +63,8 @@ const SNAKEGAME = {
                         SNAKEGAME.DATA.coordinates.push([posX, posY+1]);
                         break;
                 }
+
+                SNAKEGAME.DATA.direction = type;
 
                 await new Promise(r => setTimeout(r, 2000));
         },
