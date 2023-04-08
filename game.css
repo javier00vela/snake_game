@@ -1,0 +1,33 @@
+.game__container{
+    background-color: #eee;
+    width: 100%;
+    height: 100vh;
+}
+
+
+.game__tab{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: #fff;
+    justify-content: center;
+    display: grid;
+}
+
+.game__tab__node{
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+}
+
+.game__tab__node__box{
+
+    border: 1px solid black;
+    width: 400px;
+    height: 50px;
+}
+
+.game__tab__node__box-played{
+    background: black;
+}
